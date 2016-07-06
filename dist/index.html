@@ -9,47 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" media="screen" title="no title" charset="utf-8">
 
     <!-- Font Awesome -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" media="screen"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" media="screen">
 
     <!-- main CSS -->
     <link rel="stylesheet" href="main.css" media="screen">
 </head>
 
 <body>
+    <div id="app">
     <header>
-        <h2>ToDo List:</h2>
+        <h2>ToDo List</h2>
         <div id="enter-section">
-            <input type="text" value="What to do..." />
+            <input id="userInput" type="text" value="What to do..." />
             <!-- <input type="button" value="Clear" /> -->
-            <input type="button" value="Add to list" />
+            <input id="addBtn" type="button" value="Add to list" />
         </div>
     </header>
 
-    <div>
+    <div id="listContainer">
         <ol>
             <!-- <li>
                 <div data-id="#">
                     <p>Finish laundry...</p>
                     <input type="button" value="Delete" />
                 </div>
-            </li>
-            <li>
-                <div data-id="#">
-                    <p>Buy magic potion...</p>
-                    <input type="button" value="Delete" />
-                </div>
-            </li>
-            <li>
-                <div data-id="#">
-                    <p>Feed unicorns..</p>
-                    <input type="button" value="Delete" />
-                </div>
             </li> -->
         </ol>
     </div>
-
-    <!-- <footer>
-    </footer> -->
+  </div>
 
 
 
