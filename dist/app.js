@@ -1,12 +1,8 @@
-var $parentListItems = $('ol');
 var $userInput = $('#userInput');
-
-
 //this clears the input-text area
 $userInput.focus(function(evt) {
     $(evt.target).val('');
 });
-
 
 // the GET section needs to go first...get all items that are stored in the object arry and display them onto the DOM
 //this needs to show the current list items for the entire time
@@ -16,6 +12,7 @@ var settingsGET = {
     type: 'GET',
     dataType: 'JSON',
     success: function(response) {
+        var $parentListItems = $('ol');
         //grab each list-item-object
         response.forEach(function(listItemObject) {
             var $liContainer = $('<li data-id=""><div class="containerLiElements"><p></p><div class="sideButtonItems"><input type="checkbox" class="checkbox" id="#" /><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></div></li>');
@@ -30,6 +27,8 @@ var settingsGET = {
 
         //have to run delete function in GET bc the trash icon technically doesn't exist just in my delete function...
         $('.trashIcon').on('click', deleteItem);
+
+
         var checkbox = $('checkbox');
         console.log(checkbox);
     }
@@ -52,6 +51,7 @@ $addBtn.on('click', function() {
         type: 'POST',
         dataType: 'JSON',
         success: function(response) {
+            var $parentListItems = $('ol');
             //on click, get/save the NEW value of input
             newListItem = newListItem.trim();
             //if new value does not === '' or ' ' or '.'
@@ -88,9 +88,8 @@ function deleteItem(itemID) {
         type: 'DELETE',
         dataType: 'JSON',
         success: function(response) {
-          $('li[data-id='+ listItemID +']').remove();
+            $('li[data-id=' + listItemID + ']').remove();
         }
     };
     $.ajax(settingsDELETE);
-
 }
