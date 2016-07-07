@@ -18,11 +18,11 @@ var settingsGET = {
     success: function(response) {
         //grab each list-item-object
         response.forEach(function(listItemObject) {
-            var $liContainer = $('<li data-id=""><div><p></p><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></li>');
+            var $liContainer = $('<li data-id=""><div class="containerLiElements"><p></p><div class="sideButtonItems"><input type="checkbox" class="checkbox" id="#" /><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></div></li>');
             //give each list-item the text that it is associated with
-            $liContainer.children('div').children('p').text(listItemObject.listItem);
             $liContainer.attr('data-id', listItemObject._id);
-            $liContainer.children('div').children('i').attr('data-id', listItemObject._id);
+            $liContainer.children('div').children('p').text(listItemObject.listItem);
+            $liContainer.children('.containerLiElements').children('.sideButtonItems').children('i').attr('data-id', listItemObject._id);
             var $deleteBtn = $('.trashIcon');
             //append to <ol>
             $parentListItems.append($liContainer);
@@ -30,6 +30,8 @@ var settingsGET = {
 
         //have to run delete function in GET bc the trash icon technically doesn't exist just in my delete function...
         $('.trashIcon').on('click', deleteItem);
+        var checkbox = $('checkbox');
+        console.log(checkbox);
     }
 };
 $.ajax(settingsGET);
@@ -56,9 +58,9 @@ $addBtn.on('click', function() {
             if (newListItem === '' || newListItem === ' ' || newListItem === 'What to do...') {
                 console.log('nothing to do bc you didnt put anything good in your input box! ;P');
             } else {
-                var $liContainer = $('<li data-id=""><div><p></p><i class="fa fa-trash" aria-hidden="true"></i></div></li>');
+                var $liContainer = $('<li data-id=""><div class="containerLiElements"><p></p><div class="sideButtonItems"><input type="checkbox" class="checkbox" id="#" /><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></div></li>');
                 //give each list-item the text that it is associated with
-                $liContainer.children('div').children('p').text(newListItem);
+                $liContainer.children('.containerLiElements').children('p').text(newListItem);
                 //append to <ol>
                 $parentListItems.append($liContainer);
             }
@@ -68,7 +70,6 @@ $addBtn.on('click', function() {
         }
     };
     $.ajax(settingsPOST);
-
 });
 
 

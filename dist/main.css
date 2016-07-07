@@ -23,7 +23,7 @@ h2 {
     padding: 1em; }
 
 #listContainer {
-  padding: 1em 0 2em; }
+  padding: 1em 0 2em 0; }
 
 ol {
   margin: 0 auto;
@@ -38,17 +38,21 @@ li {
   margin: 0.5em 5%;
   list-style-type: none; }
   li div {
-    font-size: 2em; }
+    font-size: 1.5em; }
     li div:after {
       content: ' ';
       clear: both;
       display: block; }
+  li .sideButtonItems {
+    float: right; }
+  li .checkbox {
+    margin-right: .5rem;
+    display: inline-block; }
   li p {
     float: left;
     font-size: 1rem;
     padding-left: 1rem; }
   li i {
-    float: right;
     padding: 0.5rem 1rem 0 0; }
 
 /*# sourceMappingURL=main.css.map */
