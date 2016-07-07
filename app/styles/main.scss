@@ -19,17 +19,19 @@ h2 {
     margin: 0 auto;
     text-align: center;
     #userInput {
-        width: 25em;
+        width: 30em;
+        padding: 1em;
     }
 }
-
 #listContainer {
-  padding: 1em 0em 2em 0;
+    padding: 1em 0 2em;
 }
-
 ol {
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 1rem 0;
+    background: #E3B79D;
+    border-radius: 5%/15%;
+    width: 95%;
 }
 li {
     background: #E6E6E6;
@@ -47,10 +49,10 @@ li {
     p {
         float: left;
         font-size: 1rem;
-        padding-right: 1rem;
+        padding-left: 1rem;
     }
     i {
         float: right;
-        padding: 0.5rem 1rem 0 0rem;
+        padding: 0.5rem 1rem 0 0;
     }
 }
