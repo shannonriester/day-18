@@ -1,95 +1,105 @@
-var $userInput = $('#userInput');
-//this clears the input-text area
-$userInput.focus(function(evt) {
-    $(evt.target).val('');
-});
+function liContainer() {
+  return $(`
+    <li class="li-list-item" data-id="">
+      <div class="checkbox" role="checkbox"></div>
+      <div class="li-list-item div-li-list">
+        <div class="container-li-elements">
+          <p class="to-do-content"></p>
+          <div class="interactive-btn-container">
+            <i class="fa fa-trash trash-icon" data-id="" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </li>`);
+};
 
-// the GET section needs to go first...get all items that are stored in the object arry and display them onto the DOM
-//this needs to show the current list items for the entire time
-//no click-handlers/eventListeners for this part...
-var settingsGET = {
+var $userInput = $('.user-input');
+var $parentListItems = $('ol');
+var $addBtn = $('.add-btn');
+var $deleteBtn = $('.trash-icon');
+// var $completeBtn = $('.checkbox');
+// $('.input-section').append($completeBtn);
+
+
+$.ajax({
     url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
     type: 'GET',
     dataType: 'JSON',
     success: function(response) {
-        var $parentListItems = $('ol');
-        //grab each list-item-object
-        response.forEach(function(listItemObject) {
-            var $liContainer = $('<li data-id=""><div class="containerLiElements"><p></p><div class="sideButtonItems"><input type="checkbox" class="checkbox" id="#" /><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></div></li>');
-            //give each list-item the text that it is associated with
-            $liContainer.attr('data-id', listItemObject._id);
-            $liContainer.children('div').children('p').text(listItemObject.listItem);
-            $liContainer.children('.containerLiElements').children('.sideButtonItems').children('i').attr('data-id', listItemObject._id);
-            var $deleteBtn = $('.trashIcon');
-            //append to <ol>
-            $parentListItems.append($liContainer);
-        });
+      response.forEach(function(toDoItem, i) {
+        var $liContainer = liContainer();
 
-        //have to run delete function in GET bc the trash icon technically doesn't exist just in my delete function...
-        $('.trashIcon').on('click', deleteItem);
+        $liContainer.attr('data-id', toDoItem._id);
+        $liContainer.find('p').text(toDoItem.listItem);
 
-
-        var checkbox = $('checkbox');
-        console.log(checkbox);
+        $liContainer.find('.interactive-btn-container').children('i').attr('data-id', toDoItem._id);
+        $parentListItems.append($liContainer);
+      });
+        //run delete function in GET bc the trash-icon doesn't exist yet (only in on-click function)
+      $('.trash-icon').on('click', deleteItem);
+      $('.checkbox').on('click', checkBox);
     }
-};
-$.ajax(settingsGET);
-
-
-
-//this is the POST part!
-//adding new item to <ol>
-//include data property(as JS element) in the ajax settings obj
-//make sure this happens surrounding the POST or it will post new items on each webpage refresh
-var $addBtn = $('#addBtn');
-$addBtn.on('click', function() {
-    //create new li element with new input value
-    //this needs to be outside the success function
-    var newListItem = $userInput.val();
-    var settingsPOST = {
-        url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
-        type: 'POST',
-        dataType: 'JSON',
-        success: function(response) {
-            var $parentListItems = $('ol');
-            //on click, get/save the NEW value of input
-            newListItem = newListItem.trim();
-            //if new value does not === '' or ' ' or '.'
-            if (newListItem === '' || newListItem === ' ' || newListItem === 'What to do...') {
-                console.log('nothing to do bc you didnt put anything good in your input box! ;P');
-            } else {
-                var $liContainer = $('<li data-id=""><div class="containerLiElements"><p></p><div class="sideButtonItems"><input type="checkbox" class="checkbox" id="#" /><i class="fa fa-trash trashIcon" data-id="" aria-hidden="true"></i></div></div></li>');
-                //give each list-item the text that it is associated with
-                $liContainer.children('.containerLiElements').children('p').text(newListItem);
-                //append to <ol>
-                $parentListItems.append($liContainer);
-            }
-        },
-        data: {
-            "listItem": newListItem
-        }
-    };
-    $.ajax(settingsPOST);
 });
 
-
-
-
-//this is the DELETE request!
-//target the list item that was clicked
-//name-space li's with "data"
-function deleteItem(itemID) {
-    var clickedTrashcan = $(this);
-    var listItemID = clickedTrashcan[0].dataset.id;
+function deleteItem() {
+    var $clickedTrashcan = $(this);
+    console.log($clickedTrashcan);
+    var listItemID = $clickedTrashcan[0].dataset.id;
     var targetedLI = $('li');
-    console.log(targetedLI);
-    var settingsDELETE = {
+    $.ajax({
         url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon/' + listItemID,
         type: 'DELETE',
         dataType: 'JSON',
         success: function(response) {
             $('li[data-id=' + listItemID + ']').remove();
         }
-    };
-    $.ajax(settingsDELETE);
+    });
 }
+
+$addBtn.on('click', function() {
+    var newListItem = $userInput.val();
+    $.ajax({
+        url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            "listItem": newListItem
+        },
+        success: function(response) {
+            newListItem = newListItem.trim();
+            if (newListItem === '' || newListItem === ' ' || newListItem === '  ') {
+            } else {
+              var $liContainer = liContainer();
+
+              $liContainer.find('p').text(newListItem);
+              $('ol').append($liContainer);
+            }
+        },
+    });
+});
+
+// $(document).ready(function(){
+function checkBox(evt) {
+    console.log('working');
+      $('.checkbox').css({'background': '#473BF0'});
+      var newListItem = $userInput.val();
+      $.ajax({
+          url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+              "listItem": newListItem,
+          },
+          success: function(response) {
+              newListItem = newListItem.trim();
+              if (newListItem === '' || newListItem === ' ' || newListItem === '  ') {
+              } else {
+                var $liContainer = liContainer();
+
+                $liContainer.find('p').text(newListItem);
+                $parentListItems.append($liContainer);
+              }
+          },
+      });
+  });
+// });
