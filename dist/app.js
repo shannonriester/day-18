@@ -81,26 +81,23 @@ $addBtn.on('click', function() {
 });
 
 function checkBox(evt) {
+  // var $completedItem = $(this);
+  console.log();
+    var $parentLi = $(this).parent();
     $(this).css({'background': '#473BF0'});
-    var newListItem = $userInput.val();
-    $.ajax({
-        url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
-        type: 'POST',
-        dataType: 'JSON',
-        data: {
-            "completeItem": newListItem,
-        },
-        success: function(response) {
+    window.setTimeout(function() {
+      // $.ajax({
+      //     url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
+      //     type: 'DELETE',
+      //     dataType: 'JSON',
+      //     success: function(response) {
+      //       $('.completed-container').append($parentLi);
+      //
+      //       }
+      // }).then()
+    }, 1000);
 
-            // newListItem = newListItem.trim();
-            // if (newListItem === '' || newListItem === ' ' || newListItem === '  ') {
-            // } else {
-            //   var $liContainer = liContainer();
-            //
-            //   $liContainer.find('p').text(newListItem);
-            //   $parentListItems.append($liContainer);
-          }
-    });
+
   }
 
 
@@ -111,7 +108,6 @@ $('.completed-btn').on('click', function(){
 });
 
 $('.to-do-items-btn').on('click', function(){
-  console.log('working todo');
   $('#completed').css({'display': 'none'});
   $('#to-do-items').css({'display': 'block'});
   $('#deleted').css({'display': 'none'});

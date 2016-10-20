@@ -43,8 +43,8 @@ button {
   background: none;
   outline: none;
   border: none;
-  background: black;
-  color: white;
+  background: #2A2B2E;
+  color: #FFF;
 }
 
 .add-btn {
@@ -58,6 +58,7 @@ button {
   border-radius: 50%;
   color: #F6F6F6;
   font-size: 25px;
+  background: none;
 }
 
 .add-btn:hover, .trash-icon:hover, .checkbox:hover, button:hover {
