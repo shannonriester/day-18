@@ -11,6 +11,13 @@ body {
   width: 100vw;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
 header {
   background: #3772FF;
 }
@@ -32,6 +39,14 @@ h2 {
   background: #ACADBC;
 }
 
+button {
+  background: none;
+  outline: none;
+  border: none;
+  background: black;
+  color: white;
+}
+
 .add-btn {
   position: relative;
   left: 1rem;
@@ -41,13 +56,11 @@ h2 {
   padding: 0;
   border: solid 2px white;
   border-radius: 50%;
-  background: none;
   color: #F6F6F6;
   font-size: 25px;
-  outline: none;
 }
 
-.add-btn:hover, .trash-icon, .checkbox {
+.add-btn:hover, .trash-icon:hover, .checkbox:hover, button:hover {
   cursor: pointer;
 }
 

@@ -15,17 +15,31 @@
       <div id="app">
       <header>
           <h2>All Items</h2>
+          <nav class="nav">
+            <button class="nav-link completed-btn">Completed</button>
+            <button class="nav-link deleted-nav-btn">Deleted</button>
+            <button class="nav-link to-do-items-btn">To Do</button>
+          </nav>
           <section class="input-section">
               <input class="user-input" type="text" placeholder="To Do item..." />
               <button class="add-btn" role="button" value="Add item">+</button>
           </section>
       </header>
 
-      <main class="main-section">
-          <ol class="list-container">
+      <div id="to-do-items">
+        <main class="main-section">
+            <ol class="list-container">
 
-          </ol>
-      </main>
+            </ol>
+        </main>
+      </div>
+
+      <div id="completed">
+        <ol class="completed-container">
+
+        </ol>
+      </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>

@@ -14,12 +14,14 @@ function liContainer() {
 };
 
 var $userInput = $('.user-input');
-var $parentListItems = $('ol');
+var $parentListItems = $('.list-container');
+var $parentCompleted = $('.completed-container');
 var $addBtn = $('.add-btn');
 var $deleteBtn = $('.trash-icon');
-// var $completeBtn = $('.checkbox');
-// $('.input-section').append($completeBtn);
 
+$('.completed').css({'display': 'block'});
+$('.to-do-items').css({'display': 'none'});
+$('.deleted').css({'display': 'none'});
 
 $.ajax({
     url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
@@ -78,28 +80,45 @@ $addBtn.on('click', function() {
     });
 });
 
-// $(document).ready(function(){
 function checkBox(evt) {
-    console.log('working');
-      $('.checkbox').css({'background': '#473BF0'});
-      var newListItem = $userInput.val();
-      $.ajax({
-          url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
-          type: 'POST',
-          dataType: 'JSON',
-          data: {
-              "listItem": newListItem,
-          },
-          success: function(response) {
-              newListItem = newListItem.trim();
-              if (newListItem === '' || newListItem === ' ' || newListItem === '  ') {
-              } else {
-                var $liContainer = liContainer();
+    $(this).css({'background': '#473BF0'});
+    var newListItem = $userInput.val();
+    $.ajax({
+        url: 'http://tiny-za-server.herokuapp.com/collections/day18-todolist-shannon',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            "completeItem": newListItem,
+        },
+        success: function(response) {
 
-                $liContainer.find('p').text(newListItem);
-                $parentListItems.append($liContainer);
-              }
-          },
-      });
-  });
-// });
+            // newListItem = newListItem.trim();
+            // if (newListItem === '' || newListItem === ' ' || newListItem === '  ') {
+            // } else {
+            //   var $liContainer = liContainer();
+            //
+            //   $liContainer.find('p').text(newListItem);
+            //   $parentListItems.append($liContainer);
+          }
+    });
+  }
+
+
+$('.completed-btn').on('click', function(){
+  $('#completed').css({'display': 'block'});
+  $('#to-do-items').css({'display': 'none'});
+  $('#deleted').css({'display': 'none'});
+});
+
+$('.to-do-items-btn').on('click', function(){
+  console.log('working todo');
+  $('#completed').css({'display': 'none'});
+  $('#to-do-items').css({'display': 'block'});
+  $('#deleted').css({'display': 'none'});
+});
+
+$('.deleted-nav-btn').on('click', function(){
+  $('#completed').css({'display': 'none'});
+  $('#to-do-items').css({'display': 'block'});
+  $('#deleted').css({'display': 'none'});
+});
